@@ -8,14 +8,14 @@ export default function TabLayout() {
     <Tabs
       screenOptions={{
         headerShown: true,
-        headerStyle: { backgroundColor: '#1e3a8a' }, // Azul oscuro UDB
+        headerStyle: { backgroundColor: '#003DA5' }, //azulito u
         headerTintColor: '#fff',
-        tabBarActiveTintColor: '#1e3a8a',
+        tabBarActiveTintColor: '#003DA5',
       }}>
       <Tabs.Screen
         name="index"
         options={{
-          title: 'Mapa en Vivo',
+          title: 'Mapa en Tiempo Real',
           tabBarIcon: ({ color }) => <Ionicons name="map-outline" size={24} color={color} />,
         }}
       />
