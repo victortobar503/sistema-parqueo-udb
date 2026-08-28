@@ -16,23 +16,24 @@ export default function PrediccionesIAScreen() {
   ];
 
   const getHeatmapColor = (valor: number) => {
-    if (valor >= 70) return { bg: '#70BF97', text: '#ffffff' };
-    if (valor >= 40) return { bg: '#D4B933', text: '#ffffff' };
-    return { bg: '#CD776A', text: '#ffffff' };
+    if (valor >= 70) return { bg: '#70BF97', text: '#ffffff' }; //alta
+    if (valor >= 40) return { bg: '#D4B933', text: '#ffffff' }; // media
+    return { bg: '#CD776A', text: '#ffffff' }; //baja probabidliad de espacio libre
   };
 
   return (
     <ScrollView style={styles.container}>
       <View style={styles.headerCard}>
         <Ionicons name="sparkles" size={24} color="#3b82f6" />
-        <View style={styles.headerTextContainer}>
+        {/* aqui debe de mostrarse un comentario de la IA, namas esta de adorno ahorita */}
+        <View style={styles.headerTextContainer}> 
           <Text style={styles.headerTitle}>Modelo Predictivo Activo</Text>
           <Text style={styles.headerSubtitle}>Entrenado con historial de 6 meses - Precisión 87%</Text>
         </View>
       </View>
 
       <Text style={styles.sectionTitle}>Probabilidad de espacio libre (Lun-Sáb)</Text>
-
+    {/* aqui ta el heatmap, igual, de adorno por el momento, pero debe ir generando predicciones en base a los datos con la que se alimente segun dias, se puede hacer unos datos iniciales para que trabaje con ellos y los tome de referencia */}
       <View style={styles.heatmapCard}>
         <ScrollView horizontal showsHorizontalScrollIndicator={false}>
           <View>
@@ -85,6 +86,7 @@ export default function PrediccionesIAScreen() {
         </View>
       </View>
 
+      {/* otra recomendacion IA, igual que la anterior, falta hacer que la ia este aplicada */}
       <View style={styles.recommendationCard}>
         <View style={styles.recommendationHeader}>
           <Ionicons name="trending-up" size={20} color="#166534" />

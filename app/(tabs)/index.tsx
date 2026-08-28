@@ -1,7 +1,6 @@
 import React from 'react';
 import { ScrollView, View, Text, StyleSheet } from 'react-native';
 
-// Componente interno para los espacios de parqueo
 const ParkingSpot = ({ id, status }: { id: string; status: 'libre' | 'ocupado'}) => {
   const getColors = () => {
     switch (status) {
@@ -19,10 +18,9 @@ const ParkingSpot = ({ id, status }: { id: string; status: 'libre' | 'ocupado'})
 };
 
 export default function MapaEnVivoScreen() {
-  const estadisticas = { libres: 33, ocupados: 24, total: 57 }; // Simulación de datos estadísticos
-  
-  // Simulando los datos de tu ZIP web
+  const estadisticas = { libres: 33, ocupados: 24, total: 57 }; 
   const zonas = [
+    // esta parte hay que cambiarla para que actualice estado segun el sensor de cada espacio
     {
       nombre: 'ZONA A - Cafetín Superior',
       espacios: [
@@ -91,6 +89,7 @@ export default function MapaEnVivoScreen() {
   );
 }
 
+// namas estilos
 const styles = StyleSheet.create({
   container: { 
     flex: 1, backgroundColor: '#f8fafc', padding: 16 

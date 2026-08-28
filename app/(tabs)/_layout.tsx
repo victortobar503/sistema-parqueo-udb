@@ -1,10 +1,10 @@
 import { Tabs } from 'expo-router';
 import React from 'react';
-// Si usas íconos de Expo (FontAwesome, Ionicons, etc.)
 import { Ionicons } from '@expo/vector-icons';
 
 export default function TabLayout() {
   return (
+    // aqui namas estan los tabs para moverse entre las pantallas, falta agregar la del mapa de la U
     <Tabs
       screenOptions={{
         headerShown: true,
@@ -24,6 +24,13 @@ export default function TabLayout() {
         options={{
           title: 'Predicciones IA',
           tabBarIcon: ({ color }) => <Ionicons name="analytics-outline" size={24} color={color} />,
+        }}
+      />
+      <Tabs.Screen
+        name="mapa"
+        options={{
+          title: 'Mapa de la U',
+          tabBarIcon: ({ color }) => <Ionicons name="map" size={24} color={color} />,
         }}
       />
     </Tabs>
