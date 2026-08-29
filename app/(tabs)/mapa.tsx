@@ -1,25 +1,36 @@
 import React from 'react';
-import { ScrollView, View, Text, StyleSheet, Image } from 'react-native';
-import { Ionicons } from '@expo/vector-icons';
+import { View, StyleSheet, useWindowDimensions, Platform } from 'react-native';
+// Ajusta la ruta dependiendo de dónde guardaste la imagen
+import MapaUDB from '@/assets/svg/mapaUDB.svg'; 
 
 export default function MapaU() {
+    const { width, height } = useWindowDimensions();
+    const esEscritorio = width > height;
 
     return (
-        // agregado la img que se vera del mapa
-        <ScrollView style={styles.container}>
-            {/* agregando imagen del mapa (esta es una imagen random namas pa probar */}
-            <Image source={{ uri: 'https://res.cloudinary.com/dhotqeo6c/image/upload/v1744075041/samples/man-portrait.jpg' }} style={styles.images} resizeMode="contain" />
-        </ScrollView>
+        <View style={styles.container}>
+            <View 
+                style={{
+                    transform: esEscritorio ? [{ rotate: '90deg' }] : [{ rotate: '0deg' }],
+                    width: esEscritorio ? height : width,
+                    height: esEscritorio ? width : height,
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                }}
+            >
+                <MapaUDB width="100%" height="100%" />
+            </View>
+        </View>
     );
 }
 
 const styles = StyleSheet.create({
     container: { 
         flex: 1,
-        backgroundColor: '#f8fafc' 
-    },
-    images: {
-        width: '100%',
-        height: 700,
+        backgroundColor: '#409c54',
+        alignItems: 'center',
+        justifyContent: 'center',
+        // Evita que aparezcan barras de desplazamiento al rotar en la web
+        overflow: 'hidden' 
     },
 });
