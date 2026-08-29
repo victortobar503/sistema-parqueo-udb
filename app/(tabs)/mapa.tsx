@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, StyleSheet, useWindowDimensions, Platform } from 'react-native';
 // Ajusta la ruta dependiendo de dónde guardaste la imagen
-import MapaUDB from '@/assets/svg/mapaUDB.svg'; 
+import MapaUDB from '@/assets/imagenes/mapav.svg'; 
 
 export default function MapaU() {
     const { width, height } = useWindowDimensions();
