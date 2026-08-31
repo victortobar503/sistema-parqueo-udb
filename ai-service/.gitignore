@@ -1,0 +1,8 @@
+__pycache__/
+*.pyc
+venv/
+.venv/
+ 
+firebase-credentials.json 
+data/historico_real.csv 
+.env 
