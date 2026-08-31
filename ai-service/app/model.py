@@ -1,10 +1,30 @@
 import os
+import json
 import joblib
 import pandas as pd
 
 MODEL_PATH = os.path.join(os.path.dirname(__file__), "..", "models", "parking_model.pkl")
+MODEL_INFO_PATH = os.path.join(os.path.dirname(__file__), "..", "models", "model_info.json")
 
 DIAS_NOMBRE = ["Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado"]
+
+
+def cargar_info_modelo() -> dict:
+    """
+    Lee la metadata generada por train.py (de dónde salieron los datos,
+    métricas, etc.). Si no existe (modelo entrenado con una versión
+    vieja del script), devuelve valores genéricos.
+    """
+    if os.path.exists(MODEL_INFO_PATH):
+        with open(MODEL_INFO_PATH, "r", encoding="utf-8") as f:
+            return json.load(f)
+    return {
+        "algoritmo": "RandomForestRegressor",
+        "fuente_datos": "desconocida (reentrena con train.py)",
+        "filas_entrenamiento": None,
+        "mae": None,
+        "r2": None,
+    }
 
 
 class ModeloOcupacion:
@@ -86,6 +106,17 @@ def generar_recomendacion(zona: str, dias: list[int], horas: list[int], matriz: 
         suf = "AM" if h < 12 else "PM"
         h12 = h if h <= 12 else h - 12
         return f"{h12}:00 {suf}"
+
+    # Si todos los valores son (casi) iguales, no hay un "mejor" ni "peor"
+    # horario real que recomendar — es honesto decirlo así, en vez de
+    # inventar una diferencia que no existe.
+    if abs(mejor["valor"] - peor["valor"]) < 1.0:
+        return (
+            f"Con los datos disponibles hasta ahora, la Zona {zona} tiene una "
+            f"probabilidad de espacio libre de aproximadamente {mejor['valor']:.0f}%, "
+            f"sin variación clara por hora todavía. Según se acumulen más lecturas "
+            f"históricas, la predicción podrá diferenciar mejores y peores horarios."
+        )
 
     return (
         f"Según el modelo, en la Zona {zona} la mejor probabilidad de espacio libre "

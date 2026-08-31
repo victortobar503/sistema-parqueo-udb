@@ -7,7 +7,7 @@ from schemas import (
     HeatmapRequest,
     HeatmapResponse,
 )
-from model import ModeloOcupacion, nivel_de, generar_recomendacion
+from model import ModeloOcupacion, nivel_de, generar_recomendacion, cargar_info_modelo
 
 app = FastAPI(
     title="Parqueo UDB - Servicio de IA",
@@ -46,7 +46,7 @@ def predict(req: PrediccionRequest):
     if modelo is None:
         raise HTTPException(status_code=503, detail="Modelo no disponible")
 
-    if req.zona not in ["A", "B", "C", "D"]:
+    if req.zona not in ["A", "B", "C", "D", "E"]:
         raise HTTPException(status_code=400, detail="Zona inválida (usa A, B, C o D)")
 
     prob_ocupado = modelo.predecir_prob_ocupado(req.zona, req.dia_semana, req.hora)
@@ -73,7 +73,7 @@ def heatmap(req: HeatmapRequest):
     if modelo is None:
         raise HTTPException(status_code=503, detail="Modelo no disponible")
 
-    if req.zona not in ["A", "B", "C", "D"]:
+    if req.zona not in ["A", "B", "C", "D", "E"]:
         raise HTTPException(status_code=400, detail="Zona inválida (usa A, B, C o D)")
 
     matriz = modelo.predecir_matriz(req.zona, req.dias, req.horas)
@@ -85,11 +85,7 @@ def heatmap(req: HeatmapRequest):
         horas=req.horas,
         matriz_prob_libre=matriz,
         recomendacion=recomendacion,
-        modelo_info={
-            "algoritmo": "RandomForestRegressor",
-            "entrenado_con": "historial simulado (~26 semanas)",
-            "features": ["zona", "dia_semana", "hora"],
-        },
+        modelo_info=cargar_info_modelo(),
     )
 
 

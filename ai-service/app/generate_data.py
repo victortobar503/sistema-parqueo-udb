@@ -15,15 +15,15 @@ import pandas as pd
 RANDOM_SEED = 42
 np.random.seed(RANDOM_SEED)
 
-ZONAS = ["A", "B", "C", "D"]
+ZONAS = ["A", "B", "C", "D", "E"]
 
 # Capacidad total de espacios por zona (usada para pasar de % a conteo)
-CAPACIDAD_ZONA = {"A": 6, "B": 4, "C": 6, "D": 4}
+CAPACIDAD_ZONA = {"A": 6, "B": 4, "C": 6, "D": 4, "E": 6}
 
 # Perfil base de ocupación por zona (0 = siempre libre, 1 = siempre lleno).
 # Refleja que, por ejemplo, la Zona A (cafetín) se llena más rápido que
 # la Zona D (biblioteca).
-PERFIL_ZONA = {"A": 0.75, "B": 0.55, "C": 0.60, "D": 0.45}
+PERFIL_ZONA = {"A": 0.75, "B": 0.55, "C": 0.60, "D": 0.45, "E": 0.60}
 
 
 def curva_hora_pico(hora: float) -> float:
