@@ -15,5 +15,5 @@ const app = getApps().length ? getApp() : initializeApp(firebaseConfig);
 export const db = initializeFirestore(app, {
   experimentalForceLongPolling: true,
 });
-console.log('FIREBASE CONFIG:', firebaseConfig);
+
 export default app;

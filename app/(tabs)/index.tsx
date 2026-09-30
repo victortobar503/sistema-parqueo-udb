@@ -1,7 +1,7 @@
 import { doc, getDoc } from 'firebase/firestore';
 import React, { useEffect, useState } from 'react';
 import { ScrollView, StyleSheet, Text, View } from 'react-native';
-import { db } from '../lib/firebase'; // ajusta los ../ según dónde esté este archivo
+import { db } from '../../lib/firebase'; // ajusta los ../ según dónde esté este archivo
 
 type Estado = 'libre' | 'ocupado';
 
