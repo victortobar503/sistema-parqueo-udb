@@ -1,7 +1,6 @@
+import mapaImg from '@/assets/imagenes/mapav.png';
 import React from 'react';
-import { View, StyleSheet, useWindowDimensions, Platform } from 'react-native';
-// Ajusta la ruta dependiendo de dónde guardaste la imagen
-import MapaUDB from '@/assets/imagenes/mapav.svg'; 
+import { Image, StyleSheet, useWindowDimensions, View } from 'react-native';
 
 export default function MapaU() {
     const { width, height } = useWindowDimensions();
@@ -18,7 +17,11 @@ export default function MapaU() {
                     justifyContent: 'center',
                 }}
             >
-                <MapaUDB width="100%" height="100%" />
+                <Image 
+                    source={mapaImg} 
+                    style={styles.imagenMapa}
+                    resizeMode="cover" 
+                />
             </View>
         </View>
     );
@@ -30,7 +33,10 @@ const styles = StyleSheet.create({
         backgroundColor: '#409c54',
         alignItems: 'center',
         justifyContent: 'center',
-        // Evita que aparezcan barras de desplazamiento al rotar en la web
         overflow: 'hidden' 
     },
+    imagenMapa: {
+        width: '100%',
+        height: '100%',
+    }
 });
