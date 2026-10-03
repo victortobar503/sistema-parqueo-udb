@@ -20,10 +20,10 @@ WORKDIR /usr/src/app
 # Leverage a cache mount to /root/.npm to speed up subsequent builds.
 # Leverage a bind mounts to package.json and package-lock.json to avoid having to copy them into
 # into this layer.
-RUN --mount=type=bind,source=package.json,target=package.json \
-    --mount=type=bind,source=package-lock.json,target=package-lock.json \
-    --mount=type=cache,target=/root/.npm \
-    npm ci
+
+COPY package*.json ./
+
+RUN npm install --legacy-peer-deps
 
 # Run the application as a non-root user.
 USER node
@@ -32,7 +32,8 @@ USER node
 COPY . .
 
 # Expose the port that the application listens on.
-EXPOSE 8081
+EXPOSE 8081 19000 19001 19002 
 
 # Run the application.
-CMD ["npx", "expo", "start"]
+# aqui corre expo y ai service
+CMD ["npx", "expo", "start", "--host", "lan"]
