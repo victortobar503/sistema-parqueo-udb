@@ -22,17 +22,18 @@ services:
     user: "root"
     environment:
       NODE_ENV: development
+      REACT_NATIVE_PACKAGER_HOSTNAME: ${HOST_IP}
     ports:
-      - "8081:8081"              # Metro Bundler
-      - "19000:19000"            # Puertos auxiliares de Expo para Expo Go
+      - "8081:8081"
+      - "19000:19000"
       - "19001:19001"
       - "19002:19002"
     volumes:
       - .:/usr/src/app           
       - /usr/src/app/node_modules
-    stdin_open: true             # Necesario para el QR interactivo de Expo
+    stdin_open: true
     tty: true
     env_file:
       - .env
     depends_on:
-      - ai-service               # Levanta primero la IA antes de arrancar Expo
+      - ai-service

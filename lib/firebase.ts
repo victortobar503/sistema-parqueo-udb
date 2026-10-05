@@ -1,5 +1,5 @@
 import { getApp, getApps, initializeApp } from 'firebase/app';
-import { initializeFirestore } from 'firebase/firestore';
+import { initializeFirestore, getFirestore } from 'firebase/firestore';
 
 const firebaseConfig = {
   apiKey: process.env.EXPO_PUBLIC_FIREBASE_API_KEY,
@@ -10,10 +10,12 @@ const firebaseConfig = {
   appId: process.env.EXPO_PUBLIC_FIREBASE_APP_ID,
 };
 
-const app = getApps().length ? getApp() : initializeApp(firebaseConfig);
+// Evita inicializar la app de Firebase múltiples veces durante los recargos en caliente (Fast Refresh)
+const app = getApps().length === 0 ? initializeApp(firebaseConfig) : getApp();
 
-export const db = initializeFirestore(app, {
-  experimentalForceLongPolling: true,
-});
+// Inicializa Firestore con Long Polling solo en la primera carga para evitar errores de conexión
+export const db = getApps().length === 0
+  ? initializeFirestore(app, { experimentalForceLongPolling: true })
+  : getFirestore(app);
 
 export default app;
